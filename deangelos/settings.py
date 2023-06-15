@@ -31,6 +31,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '8000-pajohack-restaurantbook-pj0huq0fum0.ws-eu99.gitpod.io',
+    '8000-pajohack-restaurantbook-pj0huq0fum0.ws-eu100.gitpod.io',
     'deangelos.herokuapp.com',
     'localhost'
 ]
