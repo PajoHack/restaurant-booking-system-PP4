@@ -1,15 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="height: 100%">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <title>Base</title>
 </head>
-<body>
+<body class="d-flex flex-column h-100">
 
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Deangelos</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Menu</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Gallery</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Login</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      
+    <main class="flex-grow-1">
+        
+    
     {% block content %}
 
     {% endblock%}
     
+    </main>
+
+    <footer class="footer mt-auto py-3 bg-light">
+        <div class="container">
+            <span class="text-muted">&copy; 2023 Deangelos Restaurant</span>
+            <div class="social-media">
+                <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.youtube.com/" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>    
+      
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
