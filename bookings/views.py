@@ -54,3 +54,11 @@ class BookingDeleteView(DeleteView):
     model = Booking
     template_name = 'booking_delete.html'
     success_url = reverse_lazy('booking_list')
+    
+
+# Menu views
+
+class MenuListView(ListView):
+    model = MenuItem
+    template_name = 'bookings/menu.html'  
+    context_object_name = 'menu_items'

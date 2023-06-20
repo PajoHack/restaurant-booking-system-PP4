@@ -1,15 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
   <h2>{{ restaurant.name }}</h2>
-  <ul>
+  
     {% for restaurant in object_list %}
-      <li>
-        <a href="{% url 'restaurant_detail' restaurant.pk %}">{{ restaurant.name }}</a>
-      </li>
-      <li>
-        <a href="{% url 'restaurant_detail' restaurant.pk %}">{{ restaurant.address }}</a>
-      </li>
+      
+        <!-- <a href="{% url 'restaurant_detail' restaurant.pk %}">{{ restaurant.name }}</a> -->
+      
+      
+        <!-- <a href="{% url 'restaurant_detail' restaurant.pk %}">{{ restaurant.address }}</a> -->
+
+        <div class="container text-center">
+          <p>
+            {{ restaurant.our_story | linebreaks }}
+          </p>
+        </div>
+        
     {% endfor %}
-  </ul>
+
+  
 {% endblock %}

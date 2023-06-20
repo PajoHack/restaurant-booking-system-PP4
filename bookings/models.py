@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 
 
 # Create your models here.
@@ -7,6 +8,7 @@ class Restaurant(models.Model):
     name = models.CharField(max_length=200)
     address = models.TextField()
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    our_story = models.TextField(blank=True)
     opening_time = models.TimeField() # Opening time for the restaurant
     closing_time = models.TimeField() # Closing time for the restaurant
 
@@ -42,10 +44,11 @@ class Booking(models.Model):
 
 
 class MenuItem(models.Model):
-    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     description = models.TextField()
-    price = models.DecimalField(max_digits=6, decimal_places=2)
+    price = models.DecimalField(max_digits=5, decimal_places=2)
+    image = CloudinaryField('image', default='https://www.freepik.com/free-vector/food-menu-logo-set_715731.htm#query=placeholder%20restaurant&position=32&from_view=keyword&track=ais')
 
     def __str__(self):
         return self.name
+
