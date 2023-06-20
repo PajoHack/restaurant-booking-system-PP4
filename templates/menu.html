@@ -9,7 +9,9 @@
         <p>{{ item.description }}</p>
         <p>${{ item.price }}</p>
         {% if item.image %}
-        <img src="{{ item.image.url }}" alt="{{ item.name }}">
+            <img src="{{ item.image.url }}" alt="{{ item.name }}">
+        {% else %}
+            <img src="https://res.cloudinary.com/dpwp5cavi/image/upload/v1687277051/menu_pic_q2kjau.jpg" alt="Default Image">
         {% endif %}
     </div>
     {% endfor %}

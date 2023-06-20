@@ -44,11 +44,19 @@ class Booking(models.Model):
 
 
 class MenuItem(models.Model):
+    CATEGORY_CHOICES = [
+        ('ST', 'Starters'),
+        ('PI', 'Pizza'),
+        ('PA', 'Pasta'),
+    ]
+
     name = models.CharField(max_length=200)
     description = models.TextField()
     price = models.DecimalField(max_digits=5, decimal_places=2)
-    image = CloudinaryField('image', default='https://www.freepik.com/free-vector/food-menu-logo-set_715731.htm#query=placeholder%20restaurant&position=32&from_view=keyword&track=ais')
+    category = models.CharField(max_length=2, choices=CATEGORY_CHOICES, default='ST')
+    image = CloudinaryField('image', default='https://res.cloudinary.com/dpwp5cavi/image/upload/v1687277051/menu_pic_q2kjau.jpg')
 
     def __str__(self):
         return self.name
+
 
