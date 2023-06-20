@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 
 class RestaurantListView(ListView):
     model = Restaurant
-    template_name = 'restaurant_list.html'
+    template_name = 'home.html'
 
 class RestaurantDetailView(DetailView):
     model = Restaurant
