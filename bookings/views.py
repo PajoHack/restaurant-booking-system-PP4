@@ -54,6 +54,11 @@ class ProfileDetailView(LoginRequiredMixin, DetailView):
 
     def get_object(self, queryset=None):
         return self.request.user.profile
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['bookings'] = Booking.objects.filter(user=self.request.user)
+        return context
  
 # Booking Views
 
@@ -75,17 +80,15 @@ class BookingCreateView(View):
     def post(self, request):
         form = BookingForm(request.POST)
         if form.is_valid():
-            booking = form.save(commit=False)  # Get the Booking object, but don't save it to the database yet.
-            booking.user = request.user  # Add the current user to the booking.
-            
-            # Add your restaurant here, you may need to get it from the database.
-            # For example, if you know the ID of DeAngelos restaurant is 1:
-            restaurant = Restaurant.objects.get(name="Deangelos")  
-            booking.restaurant = restaurant
-            
-            booking.save()  # Now save the booking to the database.
-            return redirect('booking_list')
-        
+            booking = form.save(commit=False)
+            booking.user = request.user
+            try:
+                restaurant = Restaurant.objects.get(name="DeAngelo's")
+                booking.restaurant = restaurant
+                booking.save()
+                return redirect('profile', pk=request.user.profile.pk)
+            except Restaurant.DoesNotExist:
+                form.add_error('restaurant', 'This restaurant does not exist.')
         return render(request, 'booking_new.html', {'form': form})
 
 

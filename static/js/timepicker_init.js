@@ -1,3 +1,3 @@
 $(document).ready(function(){
-    $('.timepicker').timepicker();
+    $('.timepicker').timepicker({ 'timeFormat': 'H:i' });
 });

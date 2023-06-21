@@ -5,12 +5,14 @@
   <h2>Bookings:</h2>
   {% for booking in bookings %}
     <div>
+      <h3>Booking at {{ booking.restaurant.name }}</h3>
       <p>Date: {{ booking.date }}</p>
       <p>Time: {{ booking.time }}</p>
+      <p>Number of guests: {{ booking.guests }}</p>
       <!-- Display other details about the booking -->
     </div>
   {% empty %}
     <p>No bookings yet.</p>
   {% endfor %}
-  <p><a href="{% url 'logout' %}">Logout</a></p>
 {% endblock %}
+

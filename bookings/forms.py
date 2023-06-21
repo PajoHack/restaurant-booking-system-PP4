@@ -10,10 +10,11 @@ class BookingForm(forms.ModelForm):
     )
     tables = forms.ModelMultipleChoiceField(queryset=Table.objects.all(), widget=forms.CheckboxSelectMultiple)
     guests = forms.IntegerField(min_value=1, max_value=14)
+    restaurant = forms.ModelChoiceField(queryset=Restaurant.objects.all(), widget=forms.HiddenInput(), required=False)
 
     class Meta:
         model = Booking
-        fields = ['date', 'time', 'guests', 'tables', 'restaurant']  # Include 'restaurant' here
+        fields = ['date', 'time', 'guests', 'tables', 'restaurant'] 
 
     def clean_time(self):
         time = self.cleaned_data.get('time')
