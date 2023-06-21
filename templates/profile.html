@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ user.username }}'s Profile</h1>
+  <h2>Bookings:</h2>
+  {% for booking in bookings %}
+    <div>
+      <p>Date: {{ booking.date }}</p>
+      <p>Time: {{ booking.time }}</p>
+      <!-- Display other details about the booking -->
+    </div>
+  {% empty %}
+    <p>No bookings yet.</p>
+  {% endfor %}
+{% endblock %}
