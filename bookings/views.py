@@ -1,15 +1,15 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Restaurant, Table, Booking, MenuItem
+from .models import Restaurant, Table, Booking, MenuItem, Profile
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
-from django.urls import reverse_lazy
 from django.views import generic
-from .models import Booking
 from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Profile
+from .forms import BookingForm
+from django.views import View
+from django.utils.decorators import method_decorator
 
 # Create your views here.
 
@@ -55,8 +55,6 @@ class ProfileDetailView(LoginRequiredMixin, DetailView):
     def get_object(self, queryset=None):
         return self.request.user.profile
  
-
-
 # Booking Views
 
 class BookingListView(ListView):
@@ -67,10 +65,21 @@ class BookingDetailView(DetailView):
     model = Booking
     template_name = 'booking_detail.html'
 
-class BookingCreateView(CreateView):
-    model = Booking
-    template_name = 'booking_new.html'
-    fields = ('user', 'restaurant', 'table', 'date', 'time', 'guests', 'status')
+
+@method_decorator(login_required, name='dispatch')
+class BookingCreateView(View):
+    def get(self, request):
+        form = BookingForm(initial={'user': request.user})
+        return render(request, 'booking_new.html', {'form': form})
+
+    def post(self, request):
+        form = BookingForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('booking_list')
+        
+        return render(request, 'booking_new.html', {'form': form})
+
 
 class BookingUpdateView(UpdateView):
     model = Booking

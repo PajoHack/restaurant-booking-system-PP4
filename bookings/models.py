@@ -21,9 +21,11 @@ class Restaurant(models.Model):
 class Table(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     table_number = models.IntegerField()
+    seats = models.IntegerField(default=4)
 
     def __str__(self):
-        return f"Table {self.table_number} at {self.restaurant.name}"
+        return f"Table {self.table_number} at {self.restaurant.name} ({self.seats} seats)"
+
 
 
 class Booking(models.Model):
@@ -35,7 +37,7 @@ class Booking(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
-    table = models.ForeignKey(Table, on_delete=models.CASCADE)
+    tables = models.ManyToManyField(Table)
     date = models.DateField()
     time = models.TimeField()
     guests = models.IntegerField()
@@ -67,10 +69,8 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     
     @receiver(post_save, sender=User)
-    def create_user_profile(sender, instance, created, **kwargs):
+    def create_or_update_user_profile(sender, instance, created, **kwargs):
         if created:
             Profile.objects.create(user=instance)
-
-    @receiver(post_save, sender=User)
-    def save_user_profile(sender, instance, **kwargs):
-        instance.profile.save()
+        else:
+            instance.profile.save()

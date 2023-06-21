@@ -5,4 +5,10 @@ from .models import Restaurant, Table, Booking, MenuItem
 admin.site.register(Restaurant)
 admin.site.register(Table)
 admin.site.register(Booking)
-admin.site.register(MenuItem)
+# admin.site.register(MenuItem)
+
+@admin.register(MenuItem)
+class MenuItemAdmin(admin.ModelAdmin):
+    
+    list_filter = ('category',)
+    
