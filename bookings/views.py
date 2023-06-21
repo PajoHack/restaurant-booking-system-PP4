@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Restaurant, Table, Booking, MenuItem, Profile
 from django.urls import reverse_lazy
@@ -69,13 +69,21 @@ class BookingDetailView(DetailView):
 @method_decorator(login_required, name='dispatch')
 class BookingCreateView(View):
     def get(self, request):
-        form = BookingForm(initial={'user': request.user})
+        form = BookingForm()
         return render(request, 'booking_new.html', {'form': form})
 
     def post(self, request):
         form = BookingForm(request.POST)
         if form.is_valid():
-            form.save()
+            booking = form.save(commit=False)  # Get the Booking object, but don't save it to the database yet.
+            booking.user = request.user  # Add the current user to the booking.
+            
+            # Add your restaurant here, you may need to get it from the database.
+            # For example, if you know the ID of DeAngelos restaurant is 1:
+            restaurant = Restaurant.objects.get(name="Deangelos")  
+            booking.restaurant = restaurant
+            
+            booking.save()  # Now save the booking to the database.
             return redirect('booking_list')
         
         return render(request, 'booking_new.html', {'form': form})

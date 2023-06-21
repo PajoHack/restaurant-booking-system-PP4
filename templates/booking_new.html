@@ -1,17 +1,13 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
   <h2>New booking</h2>
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <label for="tables">Tables:</label>
-    <select name="tables" id="tables">
-      {% for table in tables %}
-        <option value="{{ table.id }}">{{ table }}</option>
-      {% endfor %}
-    </select>
     <button type="submit">Book</button>
   </form>
 {% endblock %}
+
 

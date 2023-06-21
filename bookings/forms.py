@@ -1,7 +1,33 @@
+from .models import Restaurant, Table, Booking
 from django import forms
-from .models import Booking
+from django.core.exceptions import ValidationError
 
 class BookingForm(forms.ModelForm):
+    date = forms.DateField(widget=forms.SelectDateWidget())
+    time = forms.TimeField(
+        widget=forms.TimeInput(attrs={'class': 'timepicker'}, format='%H:%M'), 
+        input_formats=['%H:%M']
+    )
+    tables = forms.ModelMultipleChoiceField(queryset=Table.objects.all(), widget=forms.CheckboxSelectMultiple)
+    guests = forms.IntegerField(min_value=1, max_value=14)
+
     class Meta:
         model = Booking
-        fields = ['restaurant', 'tables', 'date', 'time', 'guests', 'status']
+        fields = ['date', 'time', 'guests', 'tables', 'restaurant']  # Include 'restaurant' here
+
+    def clean_time(self):
+        time = self.cleaned_data.get('time')
+        if time:
+            if time.hour < 12 or (time.hour > 21 or (time.hour == 21 and time.minute > 30)):
+                raise ValidationError('Bookings can only be made between 12 midday and 9:30 pm.')
+        return time
+
+    def __init__(self, *args, **kwargs):
+        super(BookingForm, self).__init__(*args, **kwargs)
+        try:
+            self.fields['restaurant'].initial = Restaurant.objects.get(name='DeAngelos')
+        except Restaurant.DoesNotExist:
+            pass
+        self.fields['restaurant'].widget = forms.HiddenInput()
+
+
