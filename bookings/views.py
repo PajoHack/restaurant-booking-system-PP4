@@ -10,6 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import BookingForm
 from django.views import View
 from django.utils.decorators import method_decorator
+from django.db.models import Sum
 
 # Create your views here.
 
@@ -73,9 +74,42 @@ class BookingDetailView(DetailView):
 
 @method_decorator(login_required, name='dispatch')
 class BookingCreateView(View):
+    def get_slots(self):
+        # Get all bookings, grouped by date and time
+        bookings = (
+            Booking.objects.values('date', 'time')
+            .annotate(guests=Sum('guests'))
+            .order_by('date', 'time')
+        )
+
+        # Create list of unavailable time slots
+        unavailable_slots = []
+        guests_on_date = 0
+        current_date = None
+
+        for b in bookings:
+            if b['date'] != current_date:
+                # Start of a new day
+                guests_on_date = 0
+                current_date = b['date']
+
+            guests_on_date += b['guests']
+
+            if guests_on_date > 24:
+                unavailable_slots.append({'date': b['date'], 'time': b['time']})
+
+        return unavailable_slots
+
     def get(self, request):
         form = BookingForm()
-        return render(request, 'booking_new.html', {'form': form})
+
+        # Call the get_slots method to get the unavailable slots
+        unavailable_slots = self.get_slots()
+
+        return render(request, 'booking_new.html', {
+            'form': form,
+            'unavailable_slots': unavailable_slots
+        })
 
     def post(self, request):
         form = BookingForm(request.POST)
@@ -98,11 +132,54 @@ class BookingUpdateView(UpdateView):
     template_name = 'booking_edit.html'
     fields = ('user', 'restaurant', 'table', 'date', 'time', 'guests', 'status')
 
-class BookingDeleteView(DeleteView):
-    model = Booking
-    template_name = 'booking_delete.html'
-    success_url = reverse_lazy('booking_list')
+# class BookingDeleteView(DeleteView):
+#     model = Booking
+#     template_name = 'booking_delete.html'
+#     success_url = reverse_lazy('booking_list')
+
+@login_required
+def cancel_booking(request, pk):
+    try:
+        booking = Booking.objects.get(pk=pk)
+        if booking.user == request.user:  # Ensure the logged-in user owns this booking
+            booking.delete()
+        else:
+            return redirect('error')  # You may want to handle this case differently
+    except Booking.DoesNotExist:
+        pass  # You may want to handle this case differently
+    return redirect('profile')  # Redirect to the profile page
     
+def get_slots(request):
+    # Get all bookings, grouped by date and time
+    bookings = (
+        Booking.objects.values('date', 'time')
+        .annotate(guests=Sum('guests'))
+        .order_by('date', 'time')
+    )
+
+    # Create lists of available and unavailable time slots
+    available_slots = []
+    unavailable_slots = []
+    guests_on_date = 0
+    current_date = None
+
+    for b in bookings:
+        if b['date'] != current_date:
+            # Start of a new day
+            guests_on_date = 0
+            current_date = b['date']
+
+        guests_on_date += b['guests']
+
+        if guests_on_date <= 24:
+            available_slots.append({'date': b['date'], 'time': b['time']})
+        else:
+            unavailable_slots.append({'date': b['date'], 'time': b['time']})
+
+    return render(request, 'slots.html', {
+        'available_slots': available_slots,
+        'unavailable_slots': unavailable_slots
+    })
 
 # Menu views
 

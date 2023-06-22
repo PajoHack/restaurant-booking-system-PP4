@@ -14,4 +14,5 @@ urlpatterns = [
     path('menu/', MenuListView.as_view(), name='menu'),
     path('accounts/profile/', ProfileDetailView.as_view(), name='profile'),
     path('new/', views.BookingCreateView.as_view(), name='booking_new'),
+    path('booking/cancel/<int:pk>/', views.cancel_booking, name='cancel_booking'),
 ]

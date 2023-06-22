@@ -1,6 +1,7 @@
 from .models import Restaurant, Table, Booking
 from django import forms
 from django.core.exceptions import ValidationError
+from django.utils import timezone
 
 class BookingForm(forms.ModelForm):
     date = forms.DateField(widget=forms.SelectDateWidget())
@@ -15,6 +16,12 @@ class BookingForm(forms.ModelForm):
     class Meta:
         model = Booking
         fields = ['date', 'time', 'guests', 'tables', 'restaurant'] 
+
+    def clean_date(self):
+        date = self.cleaned_data.get('date')
+        if date and date < timezone.localdate():
+            raise ValidationError('Past dates cannot be chosen.')
+        return date
 
     def clean_time(self):
         time = self.cleaned_data.get('time')

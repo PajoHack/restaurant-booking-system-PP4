@@ -1,18 +1,30 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>{{ user.username }}'s Profile</h1>
-  <h2>Bookings:</h2>
-  {% for booking in bookings %}
-    <div>
-      <h3>Booking at {{ booking.restaurant.name }}</h3>
-      <p>Date: {{ booking.date }}</p>
-      <p>Time: {{ booking.time }}</p>
-      <p>Number of guests: {{ booking.guests }}</p>
-      <!-- Display other details about the booking -->
+  <div class="container">
+    <h1>{{ user.username }}'s Profile</h1>
+    <h2>Bookings:</h2>
+    <div class="row">
+      {% for booking in bookings %}
+        <div class="col-lg-3 col-md-4 col-sm-12">
+          <div class="card">
+            <div class="card-body">
+              <h3 class="card-title">Booking at {{ booking.restaurant.name }}</h3>
+              <p class="card-text">Date: {{ booking.date }}</p>
+              <p class="card-text">Time: {{ booking.time }}</p>
+              <p class="card-text">Number of guests: {{ booking.guests }}</p>
+              <!-- Display other details about the booking -->
+              <a href="{% url 'cancel_booking' booking.id %}" class="btn btn-danger">Cancel Booking</a>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <p>No bookings yet.</p>
+      {% endfor %}
     </div>
-  {% empty %}
-    <p>No bookings yet.</p>
-  {% endfor %}
+  </div>
 {% endblock %}
+
+
+
 
