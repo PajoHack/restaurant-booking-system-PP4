@@ -86,9 +86,10 @@ class BookingCreateView(View):
                 restaurant = Restaurant.objects.get(name="DeAngelo's")
                 booking.restaurant = restaurant
                 booking.save()
-                return redirect('profile', pk=request.user.profile.pk)
+                return redirect('profile')
             except Restaurant.DoesNotExist:
                 form.add_error('restaurant', 'This restaurant does not exist.')
+                
         return render(request, 'booking_new.html', {'form': form})
 
 
