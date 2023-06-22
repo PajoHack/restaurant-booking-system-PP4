@@ -11,6 +11,7 @@ from .forms import BookingForm
 from django.views import View
 from django.utils.decorators import method_decorator
 from django.db.models import Sum
+from django.db.models import Case, When, Value, CharField
 
 # Create your views here.
 
@@ -187,3 +188,15 @@ class MenuListView(ListView):
     model = MenuItem
     template_name = 'menu.html'  
     context_object_name = 'menu_items'
+    
+    def get_queryset(self):
+        return MenuItem.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['starters'] = MenuItem.objects.filter(category='ST')
+        context['pizzas'] = MenuItem.objects.filter(category='PI')
+        context['pastas'] = MenuItem.objects.filter(category='PA')
+
+        return context
+
