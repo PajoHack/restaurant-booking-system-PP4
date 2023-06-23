@@ -1,0 +1,9 @@
+body {
+    display: flex;
+    flex-direction: column;  /* Stack elements vertically */
+    min-height: 100vh;  /* Make sure body takes full viewport height */
+}
+
+footer {
+    margin-top: auto;  /* Push footer to the bottom */
+}
