@@ -2,8 +2,11 @@ from django.urls import path
 from .views import (
     TableAdminListView, TableAdminCreateView, TableAdminUpdateView, TableAdminDeleteView,
     BookingAdminListView, BookingAdminCreateView, BookingAdminUpdateView, BookingAdminDeleteView,
-    MenuItemAdminListView, MenuItemAdminCreateView, MenuItemAdminUpdateView, MenuItemAdminDeleteView, AdminHomeView
+    MenuItemAdminListView, MenuItemAdminCreateView, MenuItemAdminUpdateView, 
+    MenuItemAdminDeleteView, AdminHomeView
 )
+
+app_name = 'adminapp'
 
 urlpatterns = [
     path('', AdminHomeView.as_view(), name='home'),
