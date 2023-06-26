@@ -72,11 +72,14 @@ class BookingAdminDeleteView(AdminRequiredMixin, DeleteView):
 
 class MenuItemAdminListView(AdminRequiredMixin, ListView):
     model = MenuItem
-    # ... other ListView options
+    template_name = 'adminapp/menuitem_list.html'
 
 class MenuItemAdminCreateView(AdminRequiredMixin, CreateView):
     model = MenuItem
-    # ... other CreateView options
+    template_name = 'adminapp/menuitem_form.html'
+    fields = ['name', 'description', 'price', 'category', 'image']
+    success_url = reverse_lazy('menuitem_list')
+
 
 class MenuItemAdminUpdateView(AdminRequiredMixin, UpdateView):
     model = MenuItem

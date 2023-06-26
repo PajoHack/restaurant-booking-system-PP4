@@ -1,0 +1,25 @@
+{% extends "adminapp/base.html" %}
+
+{% block content %}
+  <h1>Menu Items</h1>
+  <a href="{% url 'adminapp:menuitem-add' %}" class="btn btn-primary mb-3">Add New Menu Item</a>
+  {% if object_list %}
+    <div class="row">
+    {% for menuitem in object_list %}
+      <div class="col-md-4">
+        <div class="card mb-4">
+          <img class="card-img-top menu-item-image" src="{{ menuitem.image.url }}" alt="{{ menuitem.name }}">
+          <div class="card-body">
+            <h5 class="card-title">{{ menuitem.name }}</h5>
+            <p class="card-text">{{ menuitem.description }}</p>
+            <p class="card-text"><small class="text-muted">{{ menuitem.get_category_display }}</small></p>
+            <p class="card-text">${{ menuitem.price }}</p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+  {% else %}
+    <p>No menu items available.</p>
+  {% endif %}
+{% endblock %}

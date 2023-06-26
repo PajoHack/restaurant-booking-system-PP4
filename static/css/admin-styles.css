@@ -4,6 +4,17 @@ body {
     min-height: 100vh;  /* Make sure body takes full viewport height */
 }
 
+/* admin menu item list page */
+.menu-item-image {
+    width: 100%;  /* This will make the image take the full width of the card. */
+    height: 14rem;  /* This will maintain the aspect ratio of the image. */
+    object-fit: cover;  /* This will make sure the image covers the entire space of the card, possibly cropping it if necessary. */
+}
+
+.card {
+    min-height: 30rem; /* Adjust this value as per your needs */
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -54,6 +65,36 @@ tr:hover {
 .back-link:hover {
     background-color: #333333;
     color: white;
+}
+
+.back-button {
+    background-color: #555555; /* Dark grey */
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+.back-button:hover {
+    background-color: #333333;
+    color: white;
+}
+
+.inputfile {
+    border: none;
+}
+
+.inputfile + label {
+    border: none;
+}
+
+.inputfile {
+    padding-left: 0;
 }
 
 footer {
