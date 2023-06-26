@@ -12,8 +12,16 @@ body {
 }
 
 .card {
-    min-height: 30rem; /* Adjust this value as per your needs */
+    min-height: 15rem; /* Adjust this value as per your needs */
+    margin-bottom: 1rem;
 }
+
+.btn-custom {
+    width: 6rem;
+    height: 3rem;
+}
+
+/*  */
 
 table {
     width: 100%;

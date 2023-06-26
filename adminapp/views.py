@@ -47,13 +47,16 @@ class TableAdminDeleteView(AdminRequiredMixin, DeleteView):
     template_name = 'adminapp/table_delete.html'
     success_url = '/adminapp/table/'
 
+
 class BookingAdminListView(AdminRequiredMixin, ListView):
     model = Booking
     # ... other ListView options
 
+
 class BookingAdminCreateView(AdminRequiredMixin, CreateView):
     model = Booking
     # ... other CreateView options
+
 
 class BookingAdminUpdateView(AdminRequiredMixin, UpdateView):
     model = Booking
@@ -62,7 +65,8 @@ class BookingAdminUpdateView(AdminRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse('adminapp:booking-detail', kwargs={'pk': self.object.pk})
-    
+
+ 
 class BookingAdminDeleteView(AdminRequiredMixin, DeleteView):
     model = Booking
     template_name = 'adminapp/booking_delete.html'
@@ -70,29 +74,33 @@ class BookingAdminDeleteView(AdminRequiredMixin, DeleteView):
     def get_success_url(self):
         return reverse('adminapp:booking-list')
 
+
 class MenuItemAdminListView(AdminRequiredMixin, ListView):
     model = MenuItem
     template_name = 'adminapp/menuitem_list.html'
+    
+    def get_queryset(self):
+        return MenuItem.objects.order_by('-category')
+
 
 class MenuItemAdminCreateView(AdminRequiredMixin, CreateView):
     model = MenuItem
     template_name = 'adminapp/menuitem_form.html'
     fields = ['name', 'description', 'price', 'category', 'image']
-    success_url = reverse_lazy('menuitem_list')
+    success_url = reverse_lazy('adminapp:menuitem-list')
 
 
 class MenuItemAdminUpdateView(AdminRequiredMixin, UpdateView):
     model = MenuItem
-    template_name = 'adminapp/menu_item_update.html'
+    template_name = 'adminapp/menuitem_edit.html'
     fields = ['name', 'description', 'price']  # or whatever fields you have on the MenuItem model
 
     def get_success_url(self):
-        return reverse('adminapp:menu-item-detail', kwargs={'pk': self.object.pk})
+        return reverse('adminapp:menuitem-list')
 
-from django.urls import reverse_lazy
 
 class MenuItemAdminDeleteView(AdminRequiredMixin, DeleteView):
     model = MenuItem
-    template_name = 'adminapp/menu_item_delete.html'
-    success_url = reverse_lazy('adminapp:menu-item-list')
+    template_name = 'adminapp/menuitem_delete.html'
+    success_url = reverse_lazy('adminapp:menuitem-list')
 

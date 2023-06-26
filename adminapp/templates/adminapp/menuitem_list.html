@@ -7,13 +7,17 @@
     <div class="row">
     {% for menuitem in object_list %}
       <div class="col-md-4">
-        <div class="card mb-4">
+        <div class="card mb-4 h-100">
           <img class="card-img-top menu-item-image" src="{{ menuitem.image.url }}" alt="{{ menuitem.name }}">
           <div class="card-body">
             <h5 class="card-title">{{ menuitem.name }}</h5>
             <p class="card-text">{{ menuitem.description }}</p>
             <p class="card-text"><small class="text-muted">{{ menuitem.get_category_display }}</small></p>
             <p class="card-text">${{ menuitem.price }}</p>
+          </div>
+          <div class="card-footer">
+            <a href="{% url 'adminapp:menuitem-edit' menuitem.pk %}" class="btn btn-warning btn-custom">Edit</a>
+            <a href="{% url 'adminapp:menuitem-delete' menuitem.pk %}" class="btn btn-danger btn-custom">Delete</a>
           </div>
         </div>
       </div>
@@ -23,3 +27,4 @@
     <p>No menu items available.</p>
   {% endif %}
 {% endblock %}
+

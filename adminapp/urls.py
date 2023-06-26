@@ -3,7 +3,7 @@ from .views import (
     TableAdminListView, TableAdminCreateView, TableAdminUpdateView, TableAdminDeleteView,
     BookingAdminListView, BookingAdminCreateView, BookingAdminUpdateView, BookingAdminDeleteView,
     MenuItemAdminListView, MenuItemAdminCreateView, MenuItemAdminUpdateView, 
-    MenuItemAdminDeleteView, AdminHomeView
+    MenuItemAdminDeleteView, AdminHomeView 
 )
 
 app_name = 'adminapp'
@@ -23,7 +23,7 @@ urlpatterns = [
 
     path('menuitem/', MenuItemAdminListView.as_view(), name='menuitem-list'),
     path('menuitem/add/', MenuItemAdminCreateView.as_view(), name='menuitem-add'),
-    path('menuitem/<int:pk>/edit/', MenuItemAdminUpdateView.as_view(), name='menuitem-edit'),
-    path('menuitem/<int:pk>/delete/', MenuItemAdminDeleteView.as_view(), name='menuitem-delete'),
+    path('menuitem/edit/<int:pk>/', MenuItemAdminUpdateView.as_view(), name='menuitem-edit'),
+    path('menuitem/delete/<int:pk>/', MenuItemAdminDeleteView.as_view(), name='menuitem-delete'),
 ]
 
