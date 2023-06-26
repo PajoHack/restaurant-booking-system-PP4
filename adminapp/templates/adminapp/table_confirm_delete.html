@@ -1,0 +1,13 @@
+{% extends "adminapp/base.html" %}
+
+{% block content %}
+  <h2>Delete Table</h2>
+  <p>Are you sure you want to delete table number {{ object.table_number }} with {{ object.seats }} seats?</p>
+  
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Yes, delete</button>
+  </form>
+
+  <a href="{% url 'adminapp:table' %}">No, take me back</a>
+{% endblock %}

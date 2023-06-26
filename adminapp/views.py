@@ -45,7 +45,7 @@ class TableAdminUpdateView(UpdateView):
 class TableAdminDeleteView(AdminRequiredMixin, DeleteView):
     model = Table
     template_name = 'adminapp/table_delete.html'
-    success_url = '/adminapp/table/'  # or wherever you want to redirect after delete
+    success_url = '/adminapp/table/'
 
 class BookingAdminListView(AdminRequiredMixin, ListView):
     model = Booking
