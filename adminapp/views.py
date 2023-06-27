@@ -50,7 +50,7 @@ class TableAdminDeleteView(AdminRequiredMixin, DeleteView):
 
 class BookingAdminListView(AdminRequiredMixin, ListView):
     model = Booking
-    # ... other ListView options
+    template_name = 'adminapp/booking_list.html'
 
 
 class BookingAdminCreateView(AdminRequiredMixin, CreateView):

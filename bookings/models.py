@@ -42,6 +42,8 @@ class Booking(models.Model):
     time = models.TimeField()
     guests = models.IntegerField()
     status = models.CharField(max_length=1, choices=STATUS_CHOICES, default='P')
+    user_name = models.CharField(max_length=200, default="", null=True) 
+    user_phone = models.CharField(max_length=15, default="", null=True)  
 
     def __str__(self):
         return f"Booking at {self.restaurant.name} for {self.guests} guests"
