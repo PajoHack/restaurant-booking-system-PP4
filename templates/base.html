@@ -13,7 +13,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.14.0/jquery.timepicker.min.js"></script>
     <script src="{% static 'js/timepicker_init.js' %}"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.min.css" />
-    <title>Home</title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
+    <title>DeAngelo's - {% block extra_title %}{% endblock %}</title>
 </head>
 <body class="d-flex flex-column h-100">
 
@@ -24,30 +25,30 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
-        <li class="nav-item active">
+        <li class="nav-item {% if request.resolver_match.url_name == 'menu' %}active{% endif %}">
           <a class="nav-link" href="{% url 'menu' %}">Menu</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Gallery</a>
+        <li class="nav-item {% if request.resolver_match.url_name == 'gallery' %}active{% endif %}">
+          <a class="nav-link" href="{% url 'gallery' %}">Gallery</a>
         </li>
         {% if request.user.is_authenticated %}
-            <li class="nav-item">
+            <li class="nav-item {% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
                 <a class="nav-link" href="{% url 'profile' %}">Profile</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item {% if request.resolver_match.url_name == 'booking_new' %}active{% endif %}">
                 <a class="nav-link" href="{% url 'booking_new' %}">Book a Table</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item {% if request.resolver_match.url_name == 'logout' %}active{% endif %}">
                 <a class="nav-link" href="{% url 'logout' %}">Logout</a>
             </li>
         {% else %}
-            <li class="nav-item">
+            <li class="nav-item {% if request.resolver_match.url_name == 'login' %}active{% endif %}">
                 <a class="nav-link" href="{% url 'login' %}">Login</a>
             </li>
         {% endif %}
       </ul>
     </div>
-  </nav>
+  </nav>  
       
     <main class="flex-grow-1">
         

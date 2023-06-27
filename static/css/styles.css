@@ -12,3 +12,28 @@
     color: #0056b3;  /* adjust this to a darker or lighter shade of your color */
 }
 
+/* carousel */
+.carousel-item {
+    height: 100vh;
+    min-height: 350px;
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+/* menu cards */
+
+.card-img-top {
+    height: 200px; /* Adjust as needed */
+    object-fit: cover; /* This will make the images cover the area without stretching */
+}
+.card {
+    height: 100%; /* Make the cards take up the full height of their container */
+    display: flex;
+    flex-direction: column;
+}
+.card-body {
+    flex-grow: 1; /* This will push the card footer to the bottom if there is one, and make the body take up all available space otherwise */
+}

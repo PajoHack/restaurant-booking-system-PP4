@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
 from django.views import generic
 from django.contrib.auth.decorators import login_required
-from django.views.generic import DetailView
+from django.views.generic import DetailView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import BookingForm
 from django.views import View
@@ -13,7 +13,13 @@ from django.utils.decorators import method_decorator
 from django.db.models import Sum
 from django.db.models import Case, When, Value, CharField
 
-# Create your views here.
+
+# Gallery View.
+
+
+class GalleryView(TemplateView):
+    template_name = 'gallery.html'
+
 
 # Restaurant Views
 

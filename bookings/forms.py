@@ -14,15 +14,15 @@ class BookingForm(forms.ModelForm):
         widget=forms.TimeInput(attrs={'class': 'timepicker'}, format='%H:%M'), 
         input_formats=['%H:%M']
     )
-    tables = forms.ModelMultipleChoiceField(queryset=Table.objects.all(), widget=forms.CheckboxSelectMultiple)
+    # tables = forms.ModelMultipleChoiceField(queryset=Table.objects.all(), widget=forms.CheckboxSelectMultiple)
     guests = forms.IntegerField(min_value=1, max_value=14)
-    restaurant = forms.ModelChoiceField(queryset=Restaurant.objects.all(), widget=forms.HiddenInput(), required=False)
+    restaurant = forms.ModelChoiceField(queryset=Restaurant.objects.all(), widget=forms.HiddenInput(), required=False, label='')
     user_name = forms.CharField(max_length=200)  # new field for user's name
     user_phone = forms.CharField(max_length=15)  # new field for user's phone number
 
     class Meta:
         model = Booking
-        fields = ['date', 'time', 'guests', 'tables', 'restaurant', 'user_name', 'user_phone']  # add new fields to form
+        fields = ['date', 'time', 'guests', 'user_name', 'user_phone'] 
 
     def clean_date(self):
         date = self.cleaned_data.get('date')
