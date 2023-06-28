@@ -27,12 +27,13 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     '8000-pajohack-restaurantbook-pj0huq0fum0.ws-eu99.gitpod.io',
     '8000-pajohack-restaurantbook-pj0huq0fum0.ws-eu100.gitpod.io',
     'deangelos.herokuapp.com',
+    '8000-pajohack-restaurantbook-pj0huq0fum0.ws-eu101.gitpod.io',
     'localhost'
 ]
 
