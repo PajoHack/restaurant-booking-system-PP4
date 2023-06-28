@@ -5,7 +5,24 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from bookings.models import Table, Booking, MenuItem
 from django.urls import reverse, reverse_lazy
 from .mixins import AdminRequiredMixin
-from bookings.models import Table, Restaurant
+from bookings.models import Table, Restaurant, MenuItem, Booking
+
+
+def dashboard(request):
+    bookings_count = Booking.objects.count()
+    menu_items_count = MenuItem.objects.count()
+    tables_count = Table.objects.count()
+
+    # You can also get more detailed information here if needed
+
+    context = {
+        'bookings_count': bookings_count,
+        'menu_items_count': menu_items_count,
+        'tables_count': tables_count,
+    }
+
+    return render(request, 'adminapp/home.html', context)
+
 
 class AdminHomeView(AdminRequiredMixin, View):
     def get(self, request):

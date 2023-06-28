@@ -1,8 +1,39 @@
 {% extends "adminapp/base.html" %}
 
 {% block content %}
-<div class="container">
-    <h1>Welcome to the Admin Home Page!</h1>
-    <p>This is a placeholder home page for your admin app.</p>
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                Bookings
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ bookings_count }} Bookings</h5>
+                <!-- Add more booking details here -->
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                Menu Items
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ menu_items_count }} Menu Items</h5>
+                <!-- Add more menu item details here -->
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                Tables
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ tables_count }} Tables</h5>
+                <!-- Add more table details here -->
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

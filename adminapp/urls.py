@@ -5,11 +5,13 @@ from .views import (
     MenuItemAdminListView, MenuItemAdminCreateView, MenuItemAdminUpdateView, 
     MenuItemAdminDeleteView, AdminHomeView 
 )
+from . import views
 
 app_name = 'adminapp'
 
 urlpatterns = [
-    path('', AdminHomeView.as_view(), name='home'),
+    # path('', AdminHomeView.as_view(), name='home'),
+    path('', views.dashboard, name='home'),
     
     path('table/', TableAdminListView.as_view(), name='table-list'),
     path('table/add/', TableAdminCreateView.as_view(), name='table-add'),

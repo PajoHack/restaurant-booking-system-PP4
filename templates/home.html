@@ -1,23 +1,21 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %}
 
-{% block content %}
+<h2>{{ restaurant.name }}</h2>
 
-  <h2>{{ restaurant.name }}</h2>
-  
-    {% for restaurant in object_list %}
-      
-        <!-- <a href="{% url 'restaurant_detail' restaurant.pk %}">{{ restaurant.name }}</a> -->
-      
-      
-        <!-- <a href="{% url 'restaurant_detail' restaurant.pk %}">{{ restaurant.address }}</a> -->
+{% for restaurant in object_list %}
 
-        <div class="container text-center">
-          <p>
-            {{ restaurant.our_story | linebreaks }}
-          </p>
-        </div>
-        
-    {% endfor %}
+<div class="container text-center">
+  <p>{{ restaurant.our_story | linebreaks }}</p>
+</div>
 
-  
+{% endfor %}
+
+<div class="parallax rellax" data-rellax-speed="-2"></div>
+
+<div style="height: 1000px; background-color: red; font-size: 36px">
+  Scroll Up and Down this page to see the parallax scrolling effect. This div is
+  just here to enable scrolling.
+</div>
+
+<div class="parallax"></div>
 {% endblock %}
