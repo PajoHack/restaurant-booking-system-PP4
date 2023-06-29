@@ -1,3 +1,9 @@
+/* import roboto */
+
+@import url('https://fonts.googleapis.com/css2?family=Asap:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap');
+
+/* General rules */
+
 body {
     display: flex;
     flex-direction: column;  /* Stack elements vertically */
@@ -5,6 +11,7 @@ body {
 }
 
 /* admin menu item list page */
+
 .menu-item-image {
     width: 100%;  /* This will make the image take the full width of the card. */
     height: 14rem;  /* This will maintain the aspect ratio of the image. */

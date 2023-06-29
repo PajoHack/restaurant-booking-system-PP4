@@ -1,18 +1,68 @@
+/* import roboto */
+
+@import url('https://fonts.googleapis.com/css2?family=Asap:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap');
+
+/* General styling */
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+}
+
+h1 {
+    font-size: 32px;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+h3 {
+    font-size: 20px;
+}
+
+h4, h5, h6 {
+    font-size: 16px;
+}
+
+/* If you need to increase letter spacing for uppercase text */
+
+.uppercase {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* menu images */
+
 .menu-img {
-    width: 100%;  /* or any specific size you want */
-    height: auto; /* to maintain aspect ratio */
+    width: 100%; 
+    height: auto; 
 }
 
 .social-media a {
-    color: red;  /* adjust this to match your color scheme */
-    margin-right: 10px;
+    color: #000;  /* adjust this to match your color scheme */
+    margin-right: 0 10px;
 }
 
 .social-media a:hover {
-    color: #0056b3;  /* adjust this to a darker or lighter shade of your color */
+    color: #007bff;  /* adjust this to a darker or lighter shade of your color */
 }
 
-/* carousel */
+/* Remove border around hamburger menu */
+
+.navbar-toggler {
+    border: none;
+    box-shadow: none;
+}
+
+.navbar-toggler:focus {
+    outline: none;
+}
+
+/* carousel on the menu page */
+
 .carousel-item {
     height: 100vh;
     min-height: 350px;
@@ -53,6 +103,7 @@
   }
   
 /* When the screen is 800px wide or less, make the background image's height smaller */
+
 @media only screen and (max-width: 800px) {
     .parallax {
       height: 300px;

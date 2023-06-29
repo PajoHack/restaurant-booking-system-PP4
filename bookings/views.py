@@ -3,7 +3,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .models import Restaurant, Table, Booking, MenuItem, Profile
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.forms import UserCreationForm
-from django.views import generic
+from django.views import generic, View
 from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -15,6 +15,8 @@ from django.db.models import Case, When, Value, CharField
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect
+from django.http import JsonResponse
+from django.contrib import messages
 
 
 # Gallery View.
@@ -52,7 +54,7 @@ class RestaurantDeleteView(DeleteView):
     model = Restaurant
     template_name = 'restaurant_delete.html'
     success_url = reverse_lazy('restaurant_list')
-    
+
 
 # User Views
 
@@ -89,6 +91,7 @@ class ProfileDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['bookings'] = Booking.objects.filter(user=self.request.user)
+        messages.success(self.request, 'Your booking was successful!')
         return context
  
 # Booking Views
@@ -150,6 +153,7 @@ class BookingCreateView(View):
                 restaurant = Restaurant.objects.get(name="DeAngelo's")
                 booking.restaurant = restaurant
                 booking.save()
+                form.save_m2m()  # This line is new
                 return redirect('profile')
             except Restaurant.DoesNotExist:
                 form.add_error('restaurant', 'This restaurant does not exist.')
@@ -210,6 +214,31 @@ def get_slots(request):
         'available_slots': available_slots,
         'unavailable_slots': unavailable_slots
     })
+    
+class CheckTableAvailabilityView(View):
+    def get(self, request, *args, **kwargs):
+        table_id = request.GET.get('table_id')
+        date = request.GET.get('date')
+        time = request.GET.get('time')
+        
+        # Convert date and time strings to datetime objects, 
+        # you might need to adjust the format depending on how you're sending the date and time
+        date = datetime.strptime(date, "%Y-%m-%d").date()
+        time = datetime.strptime(time, "%H:%M").time()
+        
+        # Check for overlapping bookings
+        overlapping_bookings = Booking.objects.filter(
+            restaurant=self.restaurant,
+            date=date,
+            tables__id=table_id,
+            time=time,
+        )
+
+        if overlapping_bookings.exists():
+            return JsonResponse({'is_available': False})
+        else:
+            return JsonResponse({'is_available': True})
+
 
 # Menu views
 

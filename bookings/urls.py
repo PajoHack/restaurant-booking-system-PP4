@@ -2,7 +2,8 @@ from django.urls import path
 from . import views
 from .views import (RestaurantListView, 
                     RestaurantDetailView, RestaurantCreateView, 
-                    RestaurantUpdateView, RestaurantDeleteView, MenuListView, ProfileDetailView)
+                    RestaurantUpdateView, RestaurantDeleteView, 
+                    MenuListView, ProfileDetailView, CheckTableAvailabilityView)
 
 
 urlpatterns = [
@@ -17,4 +18,6 @@ urlpatterns = [
     path('booking/cancel/<int:pk>/', views.cancel_booking, name='cancel_booking'),
     
     path('gallery/', views.GalleryView.as_view(), name='gallery'),
+    
+    path('check_table_availability/', CheckTableAvailabilityView.as_view(), name='check_table_availability'),
 ]

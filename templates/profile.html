@@ -4,6 +4,15 @@
   <div class="container">
     <h1>{{ user.username }}'s Profile</h1>
     <h2>Bookings:</h2>
+    
+    {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% endif %}
+
     <div class="row">
       {% for booking in bookings %}
         <div class="col-lg-3 col-md-4 col-sm-12">
